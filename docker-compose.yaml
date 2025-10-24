@@ -1,0 +1,31 @@
+
+services:
+  ibmmq:
+    image: icr.io/ibm-messaging/mq:latest
+    platform: linux/amd64 #Needed for mac with ARM64 architecture
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=QM1
+      - MQ_APP_USER=app
+      - MQ_APP_PASSWORD=passw0rd
+      - MQ_ADMIN_USER=admin
+      - MQ_ADMIN_PASSWORD=passw0rd
+    ports:
+      - "1414:1414"
+      - "9443:9443"
+    volumes:
+      - qm1data:/mnt/mqm
+    container_name: QM1
+
+
+  mq-otel:
+    image: mq-otel:1.0
+    platform: linux/amd64 #Needed for mac with ARM64 architecture
+    ports:
+      - "9157:9157"
+    volumes:
+      - ./mq_otel.yaml:/opt/config/mq_otel.yaml
+    container_name: mq-otel
+
+volumes:
+  qm1data:
