@@ -83,6 +83,7 @@ objects:
     - "!SYSTEM.*"
     - "!AMQ.*"
     - QM*
+    - DEV*
   channels:
     - SYSTEM.*
     - TO.*
